@@ -8,8 +8,9 @@
   "exclude": [
     "dist"
 ],
-"compilerOptions": {
+	"compilerOptions": {
     "types": [
+        "node",
         "./worker-configuration.d.ts"
     ]
 }

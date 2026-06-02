@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatShortDate } from '../../lib/content';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('weeklyLearning');
+
+	return posts.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.summary}>
+	<article class="panel section prose">
+		<a class="inline-link" href="/homework">Back to homework</a>
+		<span class="meta">{formatShortDate(entry.data.weekOf)}</span>
+		<h2 class="page-title">{entry.data.title}</h2>
+		<p class="page-intro">{entry.data.summary}</p>
+		<Content />
+	</article>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatShortDate, getWeeklyLearningPosts } from '../../lib/content';
+
+const posts = await getWeeklyLearningPosts();
+---
+
+<BaseLayout title="Homework" description="Weekly learning posts and homework updates for families.">
+	<section class="panel section">
+		<div class="section-header">
+			<div>
+				<p class="eyebrow">Homework / Weekly Learning</p>
+				<h2 class="page-title">What we are learning</h2>
+			</div>
+			<p class="page-intro">This page keeps the weekly focus, practice ideas, and classroom expectations together in one place.</p>
+		</div>
+		<ul class="list">
+			{posts.map((post) => (
+				<li class="list-item">
+					<span class="meta">{formatShortDate(post.data.weekOf)}</span>
+					<h4>{post.data.title}</h4>
+					<p>{post.data.summary}</p>
+					<a class="entry-link" href={`/homework/${post.id}`}>Read weekly update</a>
+				</li>
+			))}
+		</ul>
+	</section>
+</BaseLayout>

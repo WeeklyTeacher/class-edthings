@@ -1,17 +1,145 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+	formatLongDate,
+	formatShortDate,
+	getAnnouncements,
+	getResources,
+	getSiteSettings,
+	getWeeklyLearningPosts,
+} from '../lib/content';
 
+const [settings, announcements, weeklyPosts, resources] = await Promise.all([
+	getSiteSettings(),
+	getAnnouncements(),
+	getWeeklyLearningPosts(),
+	getResources(),
+]);
+
+const featuredAnnouncement = announcements.find((entry) => entry.data.featured) ?? announcements[0];
+const latestWeeklyPost = weeklyPosts[0];
+const featuredResources = resources.slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Home" description="Classroom news, weekly learning, resources, and family updates.">
+	<section class="hero">
+		<div class="panel hero-main">
+			<p class="eyebrow">Welcome</p>
+			<h2>{settings.classroomName || 'Our Classroom'}</h2>
+			<p>{settings.welcomeMessage || 'This is the classroom website for families and students. Check here for announcements, weekly learning, and helpful links.'}</p>
+			<div class="hero-actions">
+				<a class="button primary" href="/announcements">Read Announcements</a>
+				<a class="button secondary" href="/homework">View Weekly Learning</a>
+			</div>
+		</div>
+		<div class="hero-side">
+			<div class="panel quick-card">
+				<span class="meta warm">Latest announcement</span>
+				<h3>{featuredAnnouncement?.data.title ?? 'No announcements yet'}</h3>
+				<p>{featuredAnnouncement?.data.summary ?? 'Add the first classroom announcement in Keystatic.'}</p>
+				{featuredAnnouncement && (
+					<p class="fineprint">{formatLongDate(featuredAnnouncement.data.publishedOn)}</p>
+				)}
+			</div>
+			<div class="panel quick-card">
+				<span class="meta">This week</span>
+				<h3>{latestWeeklyPost?.data.title ?? 'Weekly learning will appear here'}</h3>
+				<p>{latestWeeklyPost?.data.summary ?? 'Families can check the latest homework and learning update in one place.'}</p>
+				{latestWeeklyPost && <p class="fineprint">Week of {formatShortDate(latestWeeklyPost.data.weekOf)}</p>}
+			</div>
+		</div>
+	</section>
+
+	<section class="panel section">
+		<div class="section-header">
+			<div>
+				<p class="eyebrow">Quick access</p>
+				<h3>Everything families need at a glance</h3>
+			</div>
+			<p>These pages stay small and predictable so the classroom can stay updated without extra work.</p>
+		</div>
+		<div class="grid cards">
+			<article class="card">
+				<span class="meta">Announcements</span>
+				<p>Read classroom reminders, schedule changes, and timely notes from the teacher.</p>
+				<div class="card-actions">
+					<a class="inline-link" href="/announcements">Open announcements</a>
+				</div>
+			</article>
+			<article class="card">
+				<span class="meta">Homework</span>
+				<p>Check the weekly learning focus, practice ideas, and what students should bring back.</p>
+				<div class="card-actions">
+					<a class="inline-link" href="/homework">Open weekly learning</a>
+				</div>
+			</article>
+			<article class="card">
+				<span class="meta">Calendar</span>
+				<p>The calendar area is ready as a placeholder for future event dates and classroom plans.</p>
+				<div class="card-actions">
+					<a class="inline-link" href="/calendar">Open calendar</a>
+				</div>
+			</article>
+			<article class="card">
+				<span class="meta">Family Documents</span>
+				<p>This placeholder will later hold private, family-only PDFs and protected documents.</p>
+				<div class="card-actions">
+					<a class="inline-link" href="/family-documents">View placeholder</a>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="panel section">
+		<div class="section-header">
+			<div>
+				<p class="eyebrow">Featured resources</p>
+				<h3>Helpful links for home</h3>
+			</div>
+			<p>Keep the resource list focused on tools families can use again and again.</p>
+		</div>
+		<div class="grid cards">
+			{featuredResources.map((resource) => (
+				<article class="card">
+					<span class="meta neutral">{resource.data.category}</span>
+					<h4>{resource.data.title}</h4>
+					<p>{resource.data.description}</p>
+					<div class="card-actions">
+						<a class="inline-link" href={resource.data.href} target="_blank" rel="noreferrer">
+							Open link
+						</a>
+					</div>
+				</article>
+			))}
+		</div>
+	</section>
+
+	<section class="grid cards home-split">
+		<article class="panel section">
+			<div class="section-header">
+				<div>
+					<p class="eyebrow">About our class</p>
+					<h3>A classroom page that feels calm and clear</h3>
+				</div>
+			</div>
+			<p class="page-intro">
+				This site is set up so the teacher can update public content in Keystatic without touching layout code.
+			</p>
+			<div class="card-actions">
+				<a class="inline-link" href="/about">Read more</a>
+			</div>
+		</article>
+		<article class="panel section">
+			<div class="section-header">
+				<div>
+					<p class="eyebrow">Contact</p>
+					<h3>Communication stays simple</h3>
+				</div>
+			</div>
+			<p class="page-intro">{settings.contactNote || 'Use the Contact page for a clear, editable communication note.'}</p>
+			<div class="card-actions">
+				<a class="inline-link" href="/contact">Open contact information</a>
+			</div>
+		</article>
+	</section>
+</BaseLayout>

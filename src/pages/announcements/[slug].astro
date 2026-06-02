@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content';
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatLongDate } from '../../lib/content';
+
+export async function getStaticPaths() {
+	const announcements = await getCollection('announcements');
+
+	return announcements.map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.summary}>
+	<article class="panel section prose">
+		<a class="inline-link" href="/announcements">Back to announcements</a>
+		<span class="meta warm">{formatLongDate(entry.data.publishedOn)}</span>
+		<h2 class="page-title">{entry.data.title}</h2>
+		<p class="page-intro">{entry.data.summary}</p>
+		<Content />
+	</article>
+</BaseLayout>

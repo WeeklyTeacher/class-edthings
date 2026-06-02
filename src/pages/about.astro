@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSiteSettings } from '../lib/content';
+
+const settings = await getSiteSettings();
+---
+
+<BaseLayout title="About Our Class" description="A simple overview of the classroom community and routines.">
+	<section class="panel section prose">
+		<p class="eyebrow">About our class</p>
+		<h2 class="page-title">{settings.classroomName || 'Our Classroom'}</h2>
+		<p class="page-intro">
+			{settings.welcomeMessage || 'This page can explain classroom routines, learning habits, and what families can expect throughout the year.'}
+		</p>
+		<div class="grid cards">
+			<article class="card">
+				<span class="meta">Community</span>
+				<h4>We keep things calm and clear</h4>
+				<p>Students benefit from a site that is easy to navigate and a classroom routine that feels predictable.</p>
+			</article>
+			<article class="card">
+				<span class="meta">Learning</span>
+				<h4>Learning updates stay in one place</h4>
+				<p>Announcements, homework, and resource links all live on public pages the teacher can update in Keystatic.</p>
+			</article>
+			<article class="card">
+				<span class="meta">Family</span>
+				<h4>Family communication stays visible</h4>
+				<p>Important notes can be edited without changing the site structure or needing a redesign later.</p>
+			</article>
+		</div>
+	</section>
+</BaseLayout>

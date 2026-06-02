@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+
+import { getSiteSettings } from '../lib/content';
+
+const { title, description = 'A welcoming classroom website for families and students.' } = Astro.props;
+
+const settings = await getSiteSettings();
+
+const navItems = [
+	{ href: '/', label: 'Home' },
+	{ href: '/announcements', label: 'Announcements' },
+	{ href: '/homework', label: 'Homework' },
+	{ href: '/calendar', label: 'Calendar' },
+	{ href: '/resources', label: 'Resources' },
+	{ href: '/about', label: 'About Our Class' },
+	{ href: '/contact', label: 'Contact' },
+	{ href: '/family-documents', label: 'Family Documents' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title} | {settings.classroomName || 'Class EDThings'}</title>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+		<header class="site-header">
+			<div class="shell header-shell">
+				<div class="brand-lockup">
+					<span class="brand-mark">CE</span>
+					<div>
+						<p class="eyebrow">{settings.teacherName || 'Your Teacher'}</p>
+						<h1>{settings.classroomName || 'Class EDThings'}</h1>
+					</div>
+				</div>
+				<nav class="site-nav" aria-label="Primary">
+					{navItems.map((item) => (
+						<a href={item.href}>{item.label}</a>
+					))}
+				</nav>
+			</div>
+		</header>
+		<main id="main" class="page-shell">
+			<slot />
+		</main>
+		<footer class="site-footer">
+			<div class="shell footer-shell">
+				<p>{settings.contactNote || 'Please check the Contact page for the best way to reach the classroom.'}</p>
+				<p>Built for families, students, and a simple editing workflow in Keystatic.</p>
+			</div>
+		</footer>
+	</body>
+</html>

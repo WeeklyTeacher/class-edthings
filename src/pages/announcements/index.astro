@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatLongDate, getAnnouncements } from '../../lib/content';
+
+const announcements = await getAnnouncements();
+---
+
+<BaseLayout title="Announcements" description="Classroom announcements and reminders for families.">
+	<section class="panel section">
+		<div class="section-header">
+			<div>
+				<p class="eyebrow">Announcements</p>
+				<h2 class="page-title">News and reminders</h2>
+			</div>
+			<p class="page-intro">Use this area for schedule updates, classroom notes, and anything families should see first.</p>
+		</div>
+		<ul class="list">
+			{announcements.map((announcement) => (
+				<li class="list-item">
+					<span class="meta warm">{formatLongDate(announcement.data.publishedOn)}</span>
+					<h4>{announcement.data.title}</h4>
+					<p>{announcement.data.summary}</p>
+					<a class="entry-link" href={`/announcements/${announcement.id}`}>Read announcement</a>
+				</li>
+			))}
+		</ul>
+	</section>
+</BaseLayout>

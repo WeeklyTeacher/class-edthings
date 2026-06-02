@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getResources } from '../../lib/content';
+
+const resources = await getResources();
+
+const categoryLabels = {
+	reading: 'Reading',
+	math: 'Math',
+	writing: 'Writing',
+	family: 'Family',
+	classroom: 'Classroom',
+};
+
+const audienceLabels = {
+	families: 'Families',
+	students: 'Students',
+	both: 'Families and students',
+};
+---
+
+<BaseLayout title="Resources" description="Helpful classroom and home learning links.">
+	<section class="panel section">
+		<div class="section-header">
+			<div>
+				<p class="eyebrow">Resources</p>
+				<h2 class="page-title">Helpful links for home</h2>
+			</div>
+			<p class="page-intro">Keep the list short, practical, and easy to scan for families who are looking for support.</p>
+		</div>
+		<div class="grid cards">
+			{resources.map((resource) => (
+				<article class="card">
+					<span class="meta neutral">{categoryLabels[resource.data.category]}</span>
+					<h4>{resource.data.title}</h4>
+					<p>{resource.data.description}</p>
+					<p class="fineprint">{audienceLabels[resource.data.audience]}</p>
+					<div class="card-actions">
+						<a class="inline-link" href={resource.data.href} target="_blank" rel="noreferrer">
+							Open resource
+						</a>
+					</div>
+				</article>
+			))}
+		</div>
+	</section>
+</BaseLayout>

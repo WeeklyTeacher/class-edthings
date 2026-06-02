@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSiteSettings } from '../lib/content';
+
+const settings = await getSiteSettings();
+---
+
+<BaseLayout title="Contact" description="How to reach the classroom and what to expect for communication.">
+	<section class="panel section prose">
+		<p class="eyebrow">Contact</p>
+		<h2 class="page-title">Communication information</h2>
+		<p class="page-intro">
+			{settings.contactNote || 'Use this page to explain the classroom communication rhythm, preferred contact method, and response expectations.'}
+		</p>
+		<div class="grid cards">
+			<article class="card">
+				<h4>Best first step</h4>
+				<p>Check announcements and the homework page before reaching out, since many common questions will be answered there.</p>
+			</article>
+			<article class="card">
+				<h4>What to include</h4>
+				<p>Share the student name, the question, and the best way to follow up so the teacher can respond efficiently.</p>
+			</article>
+			<article class="card">
+				<h4>Reminder</h4>
+				<p>This site does not collect private information yet. When family-only documents are added later, they will be protected separately.</p>
+			</article>
+		</div>
+	</section>
+</BaseLayout>

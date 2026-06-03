@@ -1,0 +1,37 @@
+---
+export const prerender = false;
+
+// src/pages/portal/index.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const isProduction = import.meta.env.PROD;
+---
+
+<BaseLayout title="Family Portal" description="Preview of the future secure family portal for Mr. Sayers' 3rd Grade Class.">
+	<section class="panel section prose">
+		<p class="eyebrow">Family Portal</p>
+		<h2 class="page-title">Family Portal Preview</h2>
+		<p class="page-intro">
+			Secure family sign-in will be enabled before classroom-specific materials are published.
+		</p>
+
+		<div class="grid cards">
+			<article class="card">
+				<h4>What families will see</h4>
+				<p>Published classroom calendar updates, weekly learning details, and published worksheets and classroom resources.</p>
+			</article>
+			<article class="card">
+				<h4>What stays private</h4>
+				<p>NotPublished lesson plans, private teacher notes, and protected worksheet files will stay hidden until the correct access rules are in place.</p>
+			</article>
+			<article class="card">
+				<h4>Access note</h4>
+				<p>
+					{isProduction
+						? 'This placeholder page is shown in production until secure family authentication is configured.'
+						: 'This is a local development preview only. No D1 records or worksheet files are shown here.'}
+				</p>
+			</article>
+		</div>
+	</section>
+</BaseLayout>

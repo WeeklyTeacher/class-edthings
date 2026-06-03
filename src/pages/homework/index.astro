@@ -1,11 +1,12 @@
 ---
+// src/pages/homework/index.astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { formatShortDate, getWeeklyLearningPosts } from '../../lib/content';
 
 const posts = await getWeeklyLearningPosts();
 ---
 
-<BaseLayout title="Homework" description="Weekly learning posts and homework updates for families.">
+<BaseLayout title="Weekly Learning" description="Weekly learning posts and homework updates for Mr. Sayers' 3rd Grade Class.">
 	<section class="panel section">
 		<div class="section-header">
 			<div>

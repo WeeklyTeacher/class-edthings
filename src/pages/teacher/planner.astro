@@ -1,0 +1,28 @@
+---
+export const prerender = false;
+
+// src/pages/teacher/planner.astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TeacherPlanner from '../../components/TeacherPlanner';
+import { listInstructionalDates } from '../../lib/calendar/baseline';
+import { buildPlannerState } from '../../lib/teacher-planner-state';
+
+const isProduction = import.meta.env.PROD;
+const instructionalDates = listInstructionalDates();
+const selectedDate = Astro.url.searchParams.get('date') ?? instructionalDates[0];
+const initialState = await buildPlannerState(Astro.locals, selectedDate);
+---
+
+<BaseLayout title="Teacher Planner" description="Local development workspace for lesson plans, calendar entries, and worksheet metadata.">
+	{isProduction ? (
+		<section class="panel section prose">
+			<p class="eyebrow">Teacher Planning Workspace</p>
+			<h2 class="page-title">Local Development Only</h2>
+			<p class="page-intro">
+				Secure production access will be enabled after authentication is configured. This editing workspace is blocked in production.
+			</p>
+		</section>
+	) : (
+		<TeacherPlanner client:load initialState={initialState} instructionalDates={instructionalDates} />
+	)}
+</BaseLayout>

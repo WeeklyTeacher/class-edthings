@@ -1,11 +1,12 @@
 ---
+// src/pages/announcements/index.astro
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { formatLongDate, getAnnouncements } from '../../lib/content';
 
 const announcements = await getAnnouncements();
 ---
 
-<BaseLayout title="Announcements" description="Classroom announcements and reminders for families.">
+<BaseLayout title="Announcements" description="Classroom announcements and reminders for families at Eshelman Elementary School.">
 	<section class="panel section">
 		<div class="section-header">
 			<div>

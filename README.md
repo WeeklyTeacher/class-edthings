@@ -41,3 +41,20 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Future Data Model
+
+The current classroom calendar is seeded from local TypeScript data and stays public-only on `/calendar/`.
+
+Planned tables for the next phase:
+
+- `calendar_entries`
+- `lesson_plans`
+- `worksheets`
+- `document_access_log`
+
+`/portal/` is the future signed-in family experience and should only show `Published` classroom data after Cloudflare Access is configured.
+
+`/teacher/planner/` is the local editing workspace. In production it must stay blocked until teacher authentication is implemented for `jeremysayers@gmail.com`.
+
+Worksheet/document storage is expected to use the Cloudflare R2 binding name `WORKSHEETS_BUCKET` in a later pass. The `class-edthings-worksheets` bucket must remain private, and `NotPublished` files should stay superuser-only after authenticated access rules are in place.

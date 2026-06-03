@@ -1,9 +1,13 @@
 ---
+// src/layouts/BaseLayout.astro
 import '../styles/global.css';
 
 import { getSiteSettings } from '../lib/content';
 
-const { title, description = 'A welcoming classroom website for families and students.' } = Astro.props;
+const {
+	title,
+	description = "Mr. Sayers' 3rd Grade Class at Eshelman Elementary School.",
+} = Astro.props;
 
 const settings = await getSiteSettings();
 
@@ -13,7 +17,7 @@ const navItems = [
 	{ href: '/homework', label: 'Homework' },
 	{ href: '/calendar', label: 'Calendar' },
 	{ href: '/resources', label: 'Resources' },
-	{ href: '/about', label: 'About Our Class' },
+	{ href: '/about', label: 'About Mr. Sayers' },
 	{ href: '/contact', label: 'Contact' },
 	{ href: '/family-documents', label: 'Family Documents' },
 ];
@@ -26,17 +30,18 @@ const navItems = [
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
-		<title>{title} | {settings.classroomName || 'Class EDThings'}</title>
+		<title>{title} | {settings.websiteName || "Mr. Sayers' Classroom Website"}</title>
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>
 		<header class="site-header">
 			<div class="shell header-shell">
 				<div class="brand-lockup">
-					<span class="brand-mark">CE</span>
+					<span class="brand-mark">MS</span>
 					<div>
-						<p class="eyebrow">{settings.teacherName || 'Your Teacher'}</p>
-						<h1>{settings.classroomName || 'Class EDThings'}</h1>
+						<p class="eyebrow">{settings.schoolName || 'Eshelman Elementary School'}</p>
+						<h1>{settings.websiteName || "Mr. Sayers' Classroom Website"}</h1>
+						<p class="brand-subline">{settings.classroomName || "Mr. Sayers' 3rd Grade Class"}</p>
 					</div>
 				</div>
 				<nav class="site-nav" aria-label="Primary">
@@ -52,7 +57,10 @@ const navItems = [
 		<footer class="site-footer">
 			<div class="shell footer-shell">
 				<p>{settings.contactNote || 'Please check the Contact page for the best way to reach the classroom.'}</p>
-				<p>Built for families, students, and a simple editing workflow in Keystatic.</p>
+				<p>
+					{settings.schoolName || 'Eshelman Elementary School'} · {settings.schoolYear || '2026-2027'} · Built for families and a simple
+					editing workflow in Keystatic.
+				</p>
 			</div>
 		</footer>
 	</body>

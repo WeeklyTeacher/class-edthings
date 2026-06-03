@@ -1,16 +1,18 @@
 ---
+// src/pages/about.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getSiteSettings } from '../lib/content';
 
 const settings = await getSiteSettings();
 ---
 
-<BaseLayout title="About Our Class" description="A simple overview of the classroom community and routines.">
+<BaseLayout title="About Mr. Sayers" description="A simple overview of the classroom community and routines at Eshelman Elementary School.">
 	<section class="panel section prose">
 		<p class="eyebrow">About our class</p>
-		<h2 class="page-title">{settings.classroomName || 'Our Classroom'}</h2>
+		<h2 class="page-title">{settings.classroomName || "Mr. Sayers' 3rd Grade Class"}</h2>
 		<p class="page-intro">
-			{settings.welcomeMessage || 'This page can explain classroom routines, learning habits, and what families can expect throughout the year.'}
+			{settings.welcomeMessage ||
+				'This page can explain classroom routines, learning habits, and what families can expect throughout the year.'}
 		</p>
 		<div class="grid cards">
 			<article class="card">
@@ -21,12 +23,12 @@ const settings = await getSiteSettings();
 			<article class="card">
 				<span class="meta">Learning</span>
 				<h4>Learning updates stay in one place</h4>
-				<p>Announcements, homework, and resource links all live on public pages the teacher can update in Keystatic.</p>
+				<p>Announcements, homework, calendar items, and resource links all live on public pages the teacher can update in Keystatic.</p>
 			</article>
 			<article class="card">
 				<span class="meta">Family</span>
 				<h4>Family communication stays visible</h4>
-				<p>Important notes can be edited without changing the site structure or needing a redesign later.</p>
+				<p>Important notes can be edited without changing the site structure or needing a redesign later. ClassDojo stays the main communication path.</p>
 			</article>
 		</div>
 	</section>

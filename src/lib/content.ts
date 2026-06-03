@@ -1,3 +1,4 @@
+// src/lib/content.ts
 import { getCollection } from 'astro:content';
 
 export async function getAnnouncements() {
@@ -24,12 +25,15 @@ export async function getSiteSettings() {
 	const entries = await getCollection('siteSettings');
 
 	return entries[0]?.data ?? {
-		classroomName: 'Class EDThings',
-		teacherName: 'Your Teacher',
+		websiteName: "Mr. Sayers' Classroom Website",
+		classroomName: "Mr. Sayers' 3rd Grade Class",
+		schoolName: 'Eshelman Elementary School',
+		schoolYear: '2026-2027',
+		teacherName: 'Mr. Sayers',
 		welcomeMessage:
-			'Welcome to our classroom website. Families can find announcements, homework, classroom resources, and communication details here.',
+			"Welcome to Mr. Sayers' 3rd Grade Class at Eshelman Elementary School. Families can check weekly learning, the classroom calendar, curriculum updates, and communication details here.",
 		contactNote:
-			'Please use the Contact page for communication guidance. The teacher will keep public updates short, clear, and easy to find.',
+			'Eshelman Elementary School uses ClassDojo for classroom communication. Please use the Contact page for the best way to reach Mr. Sayers.',
 	};
 }
 

@@ -1,3 +1,4 @@
+// src/content.config.ts
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
@@ -39,7 +40,7 @@ const resources = defineCollection({
 		title: z.string(),
 		category: z.enum(['reading', 'math', 'writing', 'family', 'classroom']),
 		description: z.string(),
-		href: z.string().url(),
+		href: z.url(),
 		audience: z.enum(['families', 'students', 'both']),
 	}),
 });
@@ -51,7 +52,10 @@ const siteSettings = defineCollection({
 		generateId: () => 'site-settings',
 	}),
 	schema: z.object({
+		websiteName: z.string(),
 		classroomName: z.string(),
+		schoolName: z.string(),
+		schoolYear: z.string(),
 		teacherName: z.string(),
 		welcomeMessage: z.string(),
 		contactNote: z.string(),

@@ -3,6 +3,8 @@
 // Runtime types generated with workerd@1.20260529.1 2026-06-01 global_fetch_strictly_public
 interface __BaseEnv_Env {
 	ASSETS: Fetcher;
+	CLASS_DB: D1Database;
+	WORKSHEETS_BUCKET: R2Bucket;
 }
 declare namespace Cloudflare {
 	interface Env extends __BaseEnv_Env {}

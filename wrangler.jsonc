@@ -3,6 +3,19 @@
 	"compatibility_flags": ["global_fetch_strictly_public"],
 	"name": "class-edthings",
 	"main": "@astrojs/cloudflare/entrypoints/server",
+	"d1_databases": [
+		{
+			"binding": "CLASS_DB",
+			"database_name": "class-edthings-db",
+			"database_id": "80912867-7b6d-4672-8286-9523f21af3ef"
+		}
+	],
+	"r2_buckets": [
+		{
+			"binding": "WORKSHEETS_BUCKET",
+			"bucket_name": "class-edthings-worksheets"
+		}
+	],
 	"assets": {
 		"directory": "./dist",
 		"binding": "ASSETS"

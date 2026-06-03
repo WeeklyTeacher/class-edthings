@@ -1,4 +1,5 @@
 ---
+// src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {
 	formatLongDate,
@@ -21,30 +22,39 @@ const latestWeeklyPost = weeklyPosts[0];
 const featuredResources = resources.slice(0, 3);
 ---
 
-<BaseLayout title="Home" description="Classroom news, weekly learning, resources, and family updates.">
+<BaseLayout title="Home" description="Mr. Sayers' 3rd Grade Class at Eshelman Elementary School: weekly learning, calendar dates, resources, and communication updates.">
 	<section class="hero">
 		<div class="panel hero-main">
-			<p class="eyebrow">Welcome</p>
-			<h2>{settings.classroomName || 'Our Classroom'}</h2>
-			<p>{settings.welcomeMessage || 'This is the classroom website for families and students. Check here for announcements, weekly learning, and helpful links.'}</p>
+			<p class="eyebrow">{settings.schoolName || 'Eshelman Elementary School'}</p>
+			<h2>{settings.websiteName || "Mr. Sayers' Classroom Website"}</h2>
+			<p>
+				{settings.welcomeMessage ||
+					"Families can check weekly learning, the classroom calendar, curriculum updates, and communication details here."}
+			</p>
 			<div class="hero-actions">
-				<a class="button primary" href="/announcements">Read Announcements</a>
+				<a class="button primary" href="/calendar">View Calendar</a>
 				<a class="button secondary" href="/homework">View Weekly Learning</a>
 			</div>
 		</div>
 		<div class="hero-side">
 			<div class="panel quick-card">
 				<span class="meta warm">Latest announcement</span>
-				<h3>{featuredAnnouncement?.data.title ?? 'No announcements yet'}</h3>
-				<p>{featuredAnnouncement?.data.summary ?? 'Add the first classroom announcement in Keystatic.'}</p>
+				<h3>{featuredAnnouncement?.data.title ?? 'Welcome to third grade'}</h3>
+				<p>
+					{featuredAnnouncement?.data.summary ??
+						'Post the first classroom note in Keystatic to share updates with families.'}
+				</p>
 				{featuredAnnouncement && (
 					<p class="fineprint">{formatLongDate(featuredAnnouncement.data.publishedOn)}</p>
 				)}
 			</div>
 			<div class="panel quick-card">
-				<span class="meta">This week</span>
+				<span class="meta">Weekly learning</span>
 				<h3>{latestWeeklyPost?.data.title ?? 'Weekly learning will appear here'}</h3>
-				<p>{latestWeeklyPost?.data.summary ?? 'Families can check the latest homework and learning update in one place.'}</p>
+				<p>
+					{latestWeeklyPost?.data.summary ??
+						'Families can check the latest homework and learning update in one place.'}
+				</p>
 				{latestWeeklyPost && <p class="fineprint">Week of {formatShortDate(latestWeeklyPost.data.weekOf)}</p>}
 			</div>
 		</div>
@@ -61,30 +71,30 @@ const featuredResources = resources.slice(0, 3);
 		<div class="grid cards">
 			<article class="card">
 				<span class="meta">Announcements</span>
-				<p>Read classroom reminders, schedule changes, and timely notes from the teacher.</p>
+				<p>Read classroom reminders, schedule changes, and timely notes from Mr. Sayers.</p>
 				<div class="card-actions">
 					<a class="inline-link" href="/announcements">Open announcements</a>
 				</div>
 			</article>
 			<article class="card">
 				<span class="meta">Homework</span>
-				<p>Check the weekly learning focus, practice ideas, and what students should bring back.</p>
+				<p>Check the weekly learning focus, CKLA updates, practice ideas, and what students should bring back.</p>
 				<div class="card-actions">
 					<a class="inline-link" href="/homework">Open weekly learning</a>
 				</div>
 			</article>
 			<article class="card">
 				<span class="meta">Calendar</span>
-				<p>The calendar area is ready as a placeholder for future event dates and classroom plans.</p>
+				<p>Use the calendar for school dates, CKLA pacing, holidays, and future lesson-plan details.</p>
 				<div class="card-actions">
 					<a class="inline-link" href="/calendar">Open calendar</a>
 				</div>
 			</article>
 			<article class="card">
 				<span class="meta">Family Documents</span>
-				<p>This placeholder will later hold private, family-only PDFs and protected documents.</p>
+				<p>Secure family documents and published worksheets will be added later for approved users.</p>
 				<div class="card-actions">
-					<a class="inline-link" href="/family-documents">View placeholder</a>
+					<a class="inline-link" href="/family-documents">Learn about family documents</a>
 				</div>
 			</article>
 		</div>
